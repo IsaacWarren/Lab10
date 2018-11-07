@@ -25,6 +25,12 @@ public class Sorting {
     /** Total data size. */
     private static final int TOTAL_INTEGER_VALUES = 1000000;
 
+    private static void swap(int[] array, int i, int j) {
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+
     /**
      * Bubble sort.
      *
@@ -33,7 +39,15 @@ public class Sorting {
      */
     @SuppressWarnings("unused")
     private static int[] bubbleSort(final int[] array) {
-        return null;
+        int[] toReturn = array;
+        while (!isSorted(toReturn)) {
+            for (int i = 1; i < toReturn.length; i++) {
+                if (toReturn[i] < toReturn[i - 1]) {
+                    swap(toReturn, i, (i - 1));
+                }
+            }
+        }
+        return toReturn;
     }
 
     /**
@@ -55,7 +69,33 @@ public class Sorting {
      */
     @SuppressWarnings("unused")
     private static int[] mergeSort(final int[] array) {
-        return null;
+
+        if (array.length == 0) {
+            return array;
+        }
+        if (array.length == 1) {
+            return array;
+        } else if (array.length == 2) {
+            if (array[0] > array[1]) {
+                int temp = array[0];
+                array[0] = array[1];
+                array[1] = temp;
+            }
+            return array;
+        } else {
+            int[] array1 = new int[array.length / 2];
+            for (int i = 0; i < array1.length; i++) {
+                array1[i] = array[i];
+            }
+            int[] array2 = Arrays.copyOfRange(array, (array.length / 2) + 1, array.length);
+            int[] sortedArray1 = mergeSort(array1);
+            int[] sortedArray2 = mergeSort(array2);
+            int[] sortedArray = merge(array1, array2);
+            return sortedArray;
+        }
+
+
+
     }
 
     /**
