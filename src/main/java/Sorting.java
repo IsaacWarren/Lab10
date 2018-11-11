@@ -69,10 +69,6 @@ public class Sorting {
      */
     @SuppressWarnings("unused")
     private static int[] mergeSort(final int[] array) {
-
-        if (array.length == 0) {
-            return array;
-        }
         if (array.length == 1) {
             return array;
         } else if (array.length == 2) {
@@ -87,10 +83,13 @@ public class Sorting {
             for (int i = 0; i < array1.length; i++) {
                 array1[i] = array[i];
             }
-            int[] array2 = Arrays.copyOfRange(array, (array.length / 2) + 1, array.length);
+            int[] array2 = new int[array.length / 2];
+            for (int i = array.length / 2 + 1; i < array1.length; i++) {
+                array2[i - (array.length / 2 + 1)] = array[i];
+            }
             int[] sortedArray1 = mergeSort(array1);
             int[] sortedArray2 = mergeSort(array2);
-            int[] sortedArray = merge(array1, array2);
+            int[] sortedArray = merge(sortedArray1, sortedArray2);
             return sortedArray;
         }
 
